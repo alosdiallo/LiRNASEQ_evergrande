@@ -16,7 +16,7 @@ module load stats/R/3.2.1
 echo "Running tophat..."
 mkdir thoutfs
 #to make the transcriptome reference: tophat -p 2 -G genes.gtf --transcriptome-index=/groups/cbdm_lab/dp133/genomes/hg19/transcriptome /groups/cbdm_lab/dp133/genomes/hg19/genome
-tophat -p 4 --library-type fr-firststrand --read-mismatches 5 --read-gap-length 5 --read-edit-dist 5 --no-coverage-search --segment-length 15 --transcriptome-index /groups/immdiv-bioinfo/evergrande/yael/genomes/NOD_custom_mm10/known_mm10 -o ./thoutfs /groups/immdiv-bioinfo/evergrande/yael/genomes/NOD_custom_mm10/genome $prefix.fq
+tophat -p 4 --library-type fr-firststrand --read-mismatches 5 --read-gap-length 5 --read-edit-dist 5 --no-coverage-search --segment-length 15 --transcriptome-index /groups/bpf-evergrande/genomes/NOD_custom_mm10/known_mm10 -o ./thoutfs /groups/bpf-evergrande/genomes/NOD_custom_mm10/genome $prefix.fq
 #tophat2 -p 2 --library-type fr-firststrand --read-mismatches 5 --read-gap-length 5 --read-edit-dist 5 --no-coverage-search --segment-length 15 --transcriptome-index /groups/cbdm_lab/dp133/genomes/hg19/transcriptome -o ./thoutfs /groups/cbdm_lab/dp133/genomes/hg19/genome $prefix.R1
 #tophat -p 4 --library-type fr-firststrand --read-mismatches 5 --read-gap-length 5 --read-edit-dist 5 --no-coverage-search --segment-length 15 --transcriptome-index /groups/cbdm_lab/dp133/NOD_custom_mm10/known_mm10 -o ./thoutfs /groups/cbdm_lab/dp133/NOD_custom_mm10/genome reads_95_89.fq
 
@@ -33,7 +33,7 @@ samtools view -b -F 256 accepted_hits.bam > accepted_hits.uniqalign.bam
 # for human i used ../../genomes/hg19/biomart_hg19_genes.gff #andrew
 
 echo "Annotating bam file with gene name..."
-tagBam -s -i accepted_hits.uniqalign.bam -files /groups/immdiv-bioinfo/evergrande/copy_work/yael/liRNAseq_newdpzpipeline/known_mm10_exons.bed -names > accepted_hits.uniqalign.genenames.bam
+tagBam -s -i accepted_hits.uniqalign.bam -files /home/yj88/immdiv_bio/evergrande/yael/liRNAseq_newdpzpipeline/known_mm10_exons.bed -names > accepted_hits.uniqalign.genenames.bam
 #samtools view test.bam | grep YB | wc -l
 mv accepted_hits.uniqalign.genenames.bam $prefix.uniqalign.genenames.bam
 
@@ -42,7 +42,7 @@ samtools sort $prefix.uniqalign.genenames.bam $prefix.uniqalign.genenames.sorted
 samtools index $prefix.uniqalign.genenames.sorted.bam
 
 echo "UMI correction: writing correcting bam file and count file..."
-Rscript /groups/immdiv-bioinfo/evergrande/copy_work/yael/liRNAseq_newdpzpipeline/CorrectAndCountUMIs.R exons $prefix.uniqalign.genenames.sorted.bam
+Rscript /home/yj88/immdiv_bio/evergrande/yael/liRNAseq_newdpzpipeline/CorrectAndCountUMIsEditDist.R exons $prefix.uniqalign.genenames.sorted.bam
 
 echo "Stats..."
 echo $prefix > names.txt
