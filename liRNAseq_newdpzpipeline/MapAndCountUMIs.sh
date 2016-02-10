@@ -33,7 +33,7 @@ samtools view -b -q 10 -F 256 accepted_hits.bam > accepted_hits.uniqalign.bam
 	#paste 1 2 3 > known_mm10_exons.bed
 
 echo "Annotating bam file with gene name..."
-tagBam -s -i accepted_hits.uniqalign.bam -files /groups/cbdm_lab/dp133/scripts/umi_scripts/known_mm10_exons.bed -names > accepted_hits.uniqalign.genenames.bam
+tagBam -s -i accepted_hits.uniqalign.bam -files known_mm10_exons.bed -names > accepted_hits.uniqalign.genenames.bam
 mv accepted_hits.uniqalign.genenames.bam $prefix.uniqalign.genenames.bam
 
 echo "Sorting and indexing bam file"
@@ -42,7 +42,7 @@ samtools index $prefix.uniqalign.genenames.sorted.bam
 
 echo "UMI correction: writing correcting bam file and count file..."
 #Rscript /groups/cbdm_lab/dp133/scripts/umi_scripts/CorrectAndCountUMIs.R exons $prefix.uniqalign.genenames.sorted.bam
-Rscript /groups/cbdm_lab/dp133/scripts/umi_scripts/CorrectAndCountUMIsEditDist.R exons $prefix.uniqalign.genenames.sorted.bam
+Rscript CorrectAndCountUMIsEditDist.R exons $prefix.uniqalign.genenames.sorted.bam
 
 echo "Stats..."
 echo $prefix > names.txt
