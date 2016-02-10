@@ -36,8 +36,8 @@ fastx_trimmer -Q 33 -f 1 -l 4 -i ../*R2.fastq -o umi.fastq
 fastx_trimmer -Q 33 -f 1 -l 30 -i ../*R1.fastq -o R1.fastq
 
 echo "Merging bc, umi and R1 into one file..."
-/groups/immdiv-bioinfo/evergrande/copy_work/yael/liRNAseq_newdpzpipeline/merge_fastq.pl bc.fastq umi.fastq bcumi.fastq
-/groups/immdiv-bioinfo/evergrande/copy_work/yael/liRNAseq_newdpzpipeline/merge_fastq.pl bcumi.fastq R1.fastq bcumiR1.fastq
+merge_fastq.pl bc.fastq umi.fastq bcumi.fastq
+merge_fastq.pl bcumi.fastq R1.fastq bcumiR1.fastq
 
 #rm bc.fastq umi.fastq R1.fastq R2.fastq bcumi.fastq
 
@@ -47,12 +47,12 @@ fastq_quality_filter -v -Q 33 -q 20 -p 80 -i bcumiR1.fastq -o bcumiR1.filtered.f
 #rm bcumiR1.fastq
 
 echo " Moving barcode to header: make sure UMI is on 5th position in the ID..."
-/groups/immdiv-bioinfo/evergrande/copy_work/yael/liRNAseq_newdpzpipeline/add_umi_to_id.pl S bcumiR1.filtered.fastq bcumiR1.filtered.bcumitoid.fq 1 8 9 4
+add_umi_to_id.pl S bcumiR1.filtered.fastq bcumiR1.filtered.bcumitoid.fq 1 8 9 4
 
 echo "Trimming out bc and umi files..."
 fastx_trimmer -Q 33 -f 13 -i bcumiR1.filtered.bcumitoid.fq -o $prefix.fq ; done
 
 echo "Map and correct for UMIs..."
-/groups/immdiv-bioinfo/evergrande/copy_work/yael/liRNAseq_newdpzpipeline/MapAndCountUMIs.sh $prefix.fq $prefix
+MapAndCountUMIs.sh $prefix.fq $prefix
 
 
