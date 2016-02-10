@@ -56,11 +56,11 @@ dest = filterBam(file = bam_file_name, destination = destfile, filter = filter)
 
 cat("PART2: Counts reads in genes\n")
 if (args[1] == "exons") { 
-  load("/groups/immdiv-bioinfo/evergrande/copy_work/yael/liRNAseq_newdpzpipeline/exons.Rda") } else 
+  load("exons.Rda") } else 
     if (args[1] == "genes") { 
-      load("/groups/immdiv-bioinfo/evergrande/copy_work/yael/liRNAseq_newdpzpipeline/genes.Rda") } else 
+      load("genes.Rda") } else 
         if (args[1] == "genes_5kb") {
-          load("/groups/immdiv-bioinfo/evergrande/copy_work/yael/liRNAseq_newdpzpipeline/genes_5kb.Rda") } else { print("choose between exons/genes/genes_5kb")}
+          load("genes_5kb.Rda") } else { print("choose between exons/genes/genes_5kb")}
 
 ref
 
@@ -71,3 +71,4 @@ colnames(counts) = c("ENTREZID", prefix)
 
 cat("Writes the counts file...\n")
 write.table(file = sprintf("%s.%s.counts", paste(prefix, "_umicorrected", sep = ""), args[1]), x = counts, row.names = F, quote = F)
+

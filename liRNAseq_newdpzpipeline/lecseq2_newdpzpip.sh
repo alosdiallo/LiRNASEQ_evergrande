@@ -32,17 +32,17 @@ fastx_trimmer -Q 33 -f 1 -l 5 -i ../*R2.fastq -o umi.fastq
 fastx_trimmer -Q 33 -f 1 -l 30 -i ../*R1.fastq -o R1.fastq
 
 echo "Merging bc, umi and R1 into one file..."
-/groups/immdiv-bioinfo/evergrande/copy_work/yael/liRNAseq_newdpzpipeline/merge_fastq.pl bc.fastq umi.fastq bcumi.fastq
-/groups/immdiv-bioinfo/evergrande/copy_work/yael/liRNAseq_newdpzpipeline/merge_fastq.pl bcumi.fastq R1.fastq bcumiR1.fastq
+merge_fastq.pl bc.fastq umi.fastq bcumi.fastq
+merge_fastq.pl bcumi.fastq R1.fastq bcumiR1.fastq
 
 echo "Filtering..."
 fastq_quality_filter -v -Q 33 -q 20 -p 80 -i bcumiR1.fastq -o bcumiR1.filtered.fastq
 
 echo " Moving barcode to header: make sure UMI is on 5th position in the ID..."
-/groups/immdiv-bioinfo/evergrande/copy_work/yael/liRNAseq_newdpzpipeline/add_umi_to_id.pl S bcumiR1.filtered.fastq bcumiR1.filtered.bcumitoid.fq 1 8 9 5
+add_umi_to_id.pl S bcumiR1.filtered.fastq bcumiR1.filtered.bcumitoid.fq 1 8 9 5
 
 echo "Demultiplexing..."
-cat bcumiR1.filtered.bcumitoid.fq | fastx_barcode_splitter.pl --bcfile /groups/immdiv-bioinfo/evergrande/copy_work/yael/liRNAseq_newdpzpipeline/lecseq_barcodes_9-24.tab --bol --mismatch 2 --prefix ${prefix}_ --suffix ".bcumiR1.fq" &> demultiplex.stat.txt_2m
+cat bcumiR1.filtered.bcumitoid.fq | fastx_barcode_splitter.pl --bcfile lecseq_barcodes_9-24.tab --bol --mismatch 2 --prefix ${prefix}_ --suffix ".bcumiR1.fq" &> demultiplex.stat.txt_2m
 
 mkdir trash
 mv ${prefix}_unmatched.bcumiR1.fq trash
@@ -59,6 +59,6 @@ while read line ; do echo $line ; mkdir $line ; mv ${line}.fq $line ; done < lib
 rm files.txt
 rm libraries.txt
 
-for dir in ${prefix}_* ; do echo $dir ; bsub -q mcore -n 2 -W 2:00 -o $dir.ls2.log /groups/immdiv-bioinfo/evergrande/copy_work/yael/liRNAseq_newdpzpipeline/MapAndCountUMIs.sh $dir $dir ; done
+for dir in ${prefix}_* ; do echo $dir ; bsub -q mcore -n 2 -W 2:00 -o $dir.ls2.log MapAndCountUMIs.sh $dir $dir ; done
 
 rm -r trash

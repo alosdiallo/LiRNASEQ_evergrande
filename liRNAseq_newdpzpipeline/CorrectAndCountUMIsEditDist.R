@@ -82,11 +82,11 @@ dest = filterBam(file = bam_file_name, destination = destfile, filter = filter)
 
 cat("PART2: Counts reads in genes\n")
 if (args[1] == "exons") { 
-  load("/groups/cbdm_lab/dp133/scripts/allon_scripts/exons.Rda") } else
+  load("exons.Rda") } else
     if (args[1] == "genes") { 
-      load("/groups/cbdm_lab/dp133/scripts/allon_scripts/genes.Rda") } else 
+      load("genes.Rda") } else 
         if (args[1] == "genes_5kb") {
-          load("/groups/cbdm_lab/dp133/scripts/allon_scripts/genes_5kb.Rda") } else { print("choose between exons/genes/genes_5kb")}
+          load("genes_5kb.Rda") } else { print("choose between exons/genes/genes_5kb")}
 
 ref
 
