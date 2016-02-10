@@ -33,7 +33,7 @@ samtools view -b -F 256 accepted_hits.bam > accepted_hits.uniqalign.bam
 # for human i used ../../genomes/hg19/biomart_hg19_genes.gff #andrew
 
 echo "Annotating bam file with gene name..."
-tagBam -s -i accepted_hits.uniqalign.bam -files /home/yj88/immdiv_bio/evergrande/yael/liRNAseq_newdpzpipeline/known_mm10_exons.bed -names > accepted_hits.uniqalign.genenames.bam
+tagBam -s -i accepted_hits.uniqalign.bam -files known_mm10_exons.bed -names > accepted_hits.uniqalign.genenames.bam
 #samtools view test.bam | grep YB | wc -l
 mv accepted_hits.uniqalign.genenames.bam $prefix.uniqalign.genenames.bam
 
@@ -42,7 +42,7 @@ samtools sort $prefix.uniqalign.genenames.bam $prefix.uniqalign.genenames.sorted
 samtools index $prefix.uniqalign.genenames.sorted.bam
 
 echo "UMI correction: writing correcting bam file and count file..."
-Rscript /home/yj88/immdiv_bio/evergrande/yael/liRNAseq_newdpzpipeline/CorrectAndCountUMIsEditDist.R exons $prefix.uniqalign.genenames.sorted.bam
+Rscript CorrectAndCountUMIsEditDist.R exons $prefix.uniqalign.genenames.sorted.bam
 
 echo "Stats..."
 echo $prefix > names.txt
