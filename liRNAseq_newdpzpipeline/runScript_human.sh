@@ -4,4 +4,4 @@
 
 #R libraries taken from /groups/cbdm_lab/dp133/R_libraries
 #export R_LIBS="/groups/bpf-evergrande/tools/cbdm_R_libraries/R_libraries"
-for dir in S* ; do echo $dir ; bsub -q mcore -n 2 -W 480:00 -R "rusage[mem=36000]" -o $dir.liRNAseq.log /home/yj88/immdiv_bio/evergrande/yael/liRNAseq_newdpzpipeline/liRNAseq_pipeline_2_human.sh $dir $dir; done
+for dir in S* ; do echo $dir ; bsub -q mcore -n 2 -W 480:00 -R "rusage[mem=36000]" -o $dir.liRNAseq.log liRNAseq_pipeline_2_human.sh $dir $dir; done
