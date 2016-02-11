@@ -33,7 +33,7 @@ samtools view -b -F 256 accepted_hits.bam > accepted_hits.uniqalign.bam
 # for human i used ../../genomes/hg19/biomart_hg19_genes.gff #andrew
 
 echo "Annotating bam file with gene name..."
-tagBam -s -i accepted_hits.uniqalign.bam -files known_mm10_exons.bed -names > accepted_hits.uniqalign.genenames.bam
+tagBam -s -i accepted_hits.uniqalign.bam -files known_mm10_exons.bed -names > accepted_hits.uniqalign.genenames.bam #will deal with known_mm10_exons.bed last
 #samtools view test.bam | grep YB | wc -l
 mv accepted_hits.uniqalign.genenames.bam $prefix.uniqalign.genenames.bam
 
