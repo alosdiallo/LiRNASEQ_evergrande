@@ -12,6 +12,11 @@ parser.add_argument("-p", help="path of the genomes")
 parser.add_argument("-t", type=int, help="transcriptome")
 parser.add_argument("-u", help="UMI Length")
 parser.add_argument("-c", help="The path of the directory that this code directory is in *including this directory*")
+parser.add_argument("-time", help="The amount of hours the genome will take to process")
+parser.add_argument("-bf", help="The start of the barcode")
+parser.add_argument("-bl", help="The end of the barcode")
+parser.add_argument("-uf", help="The start of the UMI")
+parser.add_argument("-ul", help="The end of the UMI")
 args = parser.parse_args()
 
 fileHandle = open(os.path.realpath(args.p), 'r+')#opens the file that is going to be run through
