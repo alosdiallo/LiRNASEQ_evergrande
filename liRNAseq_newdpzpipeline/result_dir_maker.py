@@ -1,6 +1,6 @@
 import os
 import glob
-from Yael_genomes_param.py import *#imports the neccasary variables from Yael_genomes_param.py 
+from RUN.py import *#imports the neccasary variables from RUN.py 
 
 resultPath = args.c + "\Results"#creates the new path with the Results folder
 if not os.path.exists(result):#checks whether folder already exists
