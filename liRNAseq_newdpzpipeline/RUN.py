@@ -9,11 +9,14 @@ from optparse import OptionParser
 parser = argparse.ArgumentParser(description="Run Genomes through scripts")
 
 parser.add_argument("-p", help="path of the genomes")#accepts the path parameter
-parser.add_argument("-t", help="transcriptome")#accepts the transcriptome parameter
+parser.add_argument("-t", type=int, help="transcriptome")#accepts the transcriptome parameter
+parser.add_argument("-u", help="UMI Length")#accepts the UMI length parameter
 parser.add_argument("-c", help="The path of the directory that this code directory is in *including this directory*")#accepts the current path parameter
-parser.add_argument("-time", type=int, help="The amount of hours the genome will take to process")#accepts the time parameter
-parser.add_argument("-bc", help="The start of the barcode")#accepts the barcode length
-parser.add_argument("-ul", help="The start of the UMI")#accepts the UMI length
+parser.add_argument("-time", help="The amount of hours the genome will take to process")#accepts the time parameter
+parser.add_argument("-bf", help="The start of the barcode")#accepts the first barcode parameter
+parser.add_argument("-bl", help="The end of the barcode")#accepts the last barcode parameter
+parser.add_argument("-uf", help="The start of the UMI")#accepts the first umi parameter
+parser.add_argument("-ul", help="The end of the UMI")#accepts the last umi parameter
 args = parser.parse_args()
 
 fileHandle = open(os.path.realpath(args.p), 'r+')#opens the file that is going to be run through
@@ -28,7 +31,7 @@ def copyFile(args.p, currentPath):
     except IOError as e:
         print('Error: %s' % e.strerror)
 
-    os.system("runScript.sh " + args.p + " " + args.time + " " + args.t + " " + args.ul + " " + args.bc)#calls the runScript and passes variables to it
+    os.system("runScript_mouse.sh " + args.p + args.time)#calls the runScript
     
 myFolders = []  #list of files in folder
         
