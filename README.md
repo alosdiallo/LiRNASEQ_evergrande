@@ -26,7 +26,6 @@ The LiRNASEQ_evergrande is used to analyze single cell RNA Seq experiments, gene
         RUN.py -p C:\..\S9 -t 1 -u 3 -c C:\..\LiRNASEQ_evergrande\liRNAseq_newdpzpipeline
         
 References:
-
-  David Puyraimond-Zemmour - Harvard Medical School
+	David Puyraimond-Zemmour - Harvard Medical School
   Ashley Sun - Harvard Medical School
   http://evergrande.hms.harvard.edu/
