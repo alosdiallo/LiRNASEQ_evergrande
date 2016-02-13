@@ -18,8 +18,11 @@ prefix=$2
 tran=$3
 umi=$4
 bc=$5
+c=$6
 bcStart=$umi+1
 resultMaker="python.exe result_dir_maker.py"
+
+eval $resultMaker
 
 echo "Merging L1 and L2 for R1..."
 cat *L00*_R1.fastq.bz2 > R1.fastq.bz2
@@ -58,7 +61,5 @@ echo "Trimming out bc and umi files..."
 fastx_trimmer -Q 33 -f 13 -i bcumiR1.filtered.bcumitoid.fq -o $prefix.fq #What does this do?
 
 echo "Map and correct for UMIs..."
-MapAndCountUMIs.sh $prefix.fq $prefix $tran $path
-
-eval $resultMaker
+MapAndCountUMIs.sh $prefix.fq $prefix $tran $path $c
 

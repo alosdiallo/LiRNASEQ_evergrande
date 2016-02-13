@@ -6,6 +6,8 @@ cd $1
 prefix=$2
 tran=$3
 path=$4
+c=$5
+resultPath=$c + "\Results"
 
 module load seq/fastx/0.0.13
 module load seq/tophat/2.0.10
@@ -62,5 +64,5 @@ rm *genenames*
 rm accepted_hits.uniqalign.bam
 
 echo "Copying files..."
-cp $prefix* ../../
+cp resultPath* ../../
 

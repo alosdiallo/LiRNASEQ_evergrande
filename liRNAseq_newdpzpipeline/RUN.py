@@ -12,6 +12,7 @@ parser.add_argument("-t", help="transcriptome")#accepts the transcriptome parame
 parser.add_argument("-time", type=int, help="The amount of hours the genome will take to process")#accepts the time parameter
 parser.add_argument("-bc", help="The start of the barcode")#accepts the barcode length
 parser.add_argument("-ul", help="The start of the UMI")#accepts the UMI length
+parser.add_argument("-c", help="The current path of this file with the directory")
 args = parser.parse_args()
 
 with open(os.path.realpath(args.p), 'r+') as f:#opens the file that is going to be run through
@@ -28,7 +29,7 @@ def copyFile(args.p, currentPath):
     except IOError as e:
         print('Error: %s' % e.strerror)
 
-    os.system("runScript.sh " + args.p + " " + args.time + " " + args.t + " " + args.ul + " " + args.bc)#calls the runScript and passes variables to it
+    os.system("runScript.sh " + args.p + " " + args.time + " " + args.t + " " + args.ul + " " + args.bc + " " + args.c)#calls the runScript and passes variables to it
     
 myFolders = []  #list of files in folder
         
