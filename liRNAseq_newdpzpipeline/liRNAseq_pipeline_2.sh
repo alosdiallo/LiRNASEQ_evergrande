@@ -52,10 +52,10 @@ fastq_quality_filter -v -Q 33 -q 20 -p 80 -i bcumiR1.fastq -o bcumiR1.filtered.f
 #rm bcumiR1.fastq
 
 echo " Moving barcode to header: make sure UMI is on 5th position in the ID..."
-/add_umi_to_id.pl S bcumiR1.filtered.fastq bcumiR1.filtered.bcumitoid.fq 1 8 9 4
+/add_umi_to_id.pl S bcumiR1.filtered.fastq bcumiR1.filtered.bcumitoid.fq 1 8 9 4 #Where are these numbers coming from?
 
 echo "Trimming out bc and umi files..."
-fastx_trimmer -Q 33 -f 13 -i bcumiR1.filtered.bcumitoid.fq -o $prefix.fq 
+fastx_trimmer -Q 33 -f 13 -i bcumiR1.filtered.bcumitoid.fq -o $prefix.fq #What does this do?
 
 echo "Map and correct for UMIs..."
 MapAndCountUMIs.sh $prefix.fq $prefix $tran $path
