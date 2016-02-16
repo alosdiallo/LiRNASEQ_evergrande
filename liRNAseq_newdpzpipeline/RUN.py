@@ -17,19 +17,21 @@ args = parser.parse_args()
 
 currentPath = os.path.dirname(os.path.realpath(__file__))
 
-with open(os.path.realpath(args.p), 'r+') as f:#opens the file that is going to be run through
-    genomeSize = os.path.getsize(f)#gets the file size of the args.p file
-    uncompressedData = bz2.BZ2File(f).read(genomeSize)#Decompressed the data set in .bz2 and does so until the size that was determined earlier
+for i in os.listdir(args.p):
+    if i.endswith(".bz2"):
+        i = args.p + "/" + i
+        statinfo = os.stat(i)
+        i = statinfo.st_size
+        i = i.encode('string_encode')
+        with open(i, 'r+') as f:#opens the file that is going to be run through
+            genomeSize = statinfo.st_size#gets the file size of the args.p file
+            uncompressedData = bz2.BZ2File(f).read(genomeSize)#Decompressed the data set in .bz2 and does so until the size that was determined earlier
+        continue
+    else:
+        continue
     
-print("PATH: " % args.p)
-
-def copyFile(os.path.realpath(args.p), currentPath):
-    try:
-        shutil.copy(args.p, currentPath)#copies the args.p to the local directory
-    except shutil.Error as e:
-        print('Error: %s' % e)
-    except IOError as e:
-        print('Error: %s' % e.strerror)
+print ("Path - " + args.p)
+print ("CurrentPath - " + currentPath)
 
 os.system("runScript.sh " + args.p + " " + args.time + " " + args.g + " " + args.t + " " + args.ul + " " + args.bc)#calls the runScript and passes variables to it
     
@@ -48,4 +50,3 @@ for root, dirs, files in os.walk(args.p):
 
 f.closed        
         
-print ("Part I succesful!")
