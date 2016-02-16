@@ -4,10 +4,10 @@
 
 cd $1
 prefix=$2
-tran=$3
-path=$4
-c=$5
-resultPath=$c + "\Results"
+genome=$3
+tran=$4
+path=$5
+resultPath=$prefix + "\Results"
 
 module load seq/fastx/0.0.13
 module load seq/tophat/2.0.10
@@ -21,7 +21,7 @@ echo "Running tophat..."
 mkdir thoutfs
 #to make the transcriptome reference: tophat -p 2 -G genes.gtf --transcriptome-index=/groups/cbdm_lab/dp133/genomes/hg19/transcriptome /groups/cbdm_lab/dp133/genomes/hg19/genome
 #tophat -p 4 --library-type fr-firststrand --read-mismatches 5 --read-gap-length 5 --read-edit-dist 5 --no-coverage-search --segment-length 15 --transcriptome-index /groups/cbdm_lab/dp133/NOD_custom_mm10/known_mm10 -o ./thoutfs /groups/cbdm_lab/dp133/NOD_custom_mm10/genome $prefix.fq
-tophat -p 4 --library-type fr-firststrand --read-mismatches 2 --read-gap-length 2 --read-edit-dist 3 --no-coverage-search --segment-length 15 --transcriptome-only --transcriptome-max-hits 1 --prefilter-multihits --transcriptome-index $tran -o ./thoutfs $path $prefix.fq
+tophat -p 4 --library-type fr-firststrand --read-mismatches 2 --read-gap-length 2 --read-edit-dist 3 --no-coverage-search --segment-length 15 --transcriptome-only --transcriptome-max-hits 1 --prefilter-multihits --transcriptome-index $tran -o ./thoutfs $genome $prefix.fq
 #tophat2 -p 2 --library-type fr-firststrand --read-mismatches 5 --read-gap-length 5 --read-edit-dist 5 --no-coverage-search --segment-length 15 --transcriptome-index /groups/cbdm_lab/dp133/genomes/hg19/transcriptome -o ./thoutfs /groups/cbdm_lab/dp133/genomes/hg19/genome $prefix.R1
 
 cd thoutfs

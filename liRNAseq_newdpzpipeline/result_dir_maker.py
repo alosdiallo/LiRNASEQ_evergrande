@@ -2,7 +2,7 @@ import os
 import glob
 from RUN.py import *#imports the neccasary variables from RUN.py 
 
-resultPath = os.path.abspath(os.path.dirname(__file__)) + "\Results"#creates the new path with the Results folder
+resultPath = args.p + "\Results"#creates the new path with the Results folder
 if not os.path.exists(result):#checks whether folder already exists
     os.makedirs("Results")#creates a folder called Results
 

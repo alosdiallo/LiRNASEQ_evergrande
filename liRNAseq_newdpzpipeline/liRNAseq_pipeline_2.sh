@@ -15,10 +15,10 @@ echo "Working directory : " $1
 cd $1 # working directory where the fastq.bz2 files are
 path=$1
 prefix=$2
-tran=$3
-umi=$4
-bc=$5
-c=$6
+genome=$3
+tran=$4
+umi=$5
+bc=$6
 bcStart=$umi+1
 resultMaker="python.exe result_dir_maker.py"
 
@@ -61,5 +61,5 @@ echo "Trimming out bc and umi files..."
 fastx_trimmer -Q 33 -f 13 -i bcumiR1.filtered.bcumitoid.fq -o $prefix.fq #What does this do?
 
 echo "Map and correct for UMIs..."
-MapAndCountUMIs.sh $prefix.fq $prefix $tran $path $c
+MapAndCountUMIs.sh $prefix.fq $prefix $genome $tran $path
 
