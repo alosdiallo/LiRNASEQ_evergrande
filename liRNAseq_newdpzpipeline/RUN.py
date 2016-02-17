@@ -27,4 +27,3 @@ print ("Path - " + args.p)
 print ("CurrentPath - " + currentPath)
 
 os.system("./runScript.sh " + args.p + " " + args.time + " " + args.g + " " + args.t + " " + args.ul + " " + args.bc)#calls the runScript and passes variables to it
-    
