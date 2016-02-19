@@ -10,4 +10,4 @@ genome=$3
 tran=$4
 umi=$5
 bc=$6
-for dir in S* ; do echo $dir ; bsub -q mcore  -n 2 -W $time:00 -R "rusage[mem=24000]" -o $dir.liRNAseq.log liRNAseq_pipeline_2.sh $dir $dir $genome $tran $umi $bc; done
+for dir in S* ; do echo $dir ; bsub -q mcore  -n 2 -W $time -R "rusage[mem=24000]" -o $dir.liRNAseq.log liRNAseq_pipeline_2.sh $dir $dir $genome $tran $umi $bc; done
