@@ -16,19 +16,20 @@ args = parser.parse_args()
 dirs = os.listdir(args.p)
 
 for file in dirs:
-    exptype = []
-    exptype = file.rsplit('_', 5)
-    print(exptype)
-    arrexptype = []
-    arrexptype.append(exptype[2])
-    print(len(arrexptype))
-    for expfolders in arrexptype:
-        expfolderpath = os.path.join(args.p, expfolders)
-        if not os.path.exists(expfolderpath):
-            os.mkdir(expfolderpath)
-            if re.match("R1", exptype[4]):
-                shutil.move(file, os.path.join(expfolderpath, arrexptype[4]))
-            elif re.match("R2", exptype[4]):
-                shutil.move(file, os.path.join(expfolderpath, arrexptype[4]))
-            else:
-                print("Error")
+    if file.endswith(".bz2"):
+        exptype = []
+        exptype = file.split('_')
+        print(exptype)
+        arrexptype = []
+        arrexptype.append(exptype[2])
+        print(len(arrexptype))
+        for expfolders in arrexptype:
+            expfolderpath = os.path.join(args.p, expfolders)
+            if not os.path.exists(expfolderpath):
+                os.mkdir(expfolderpath)
+                if re.match("R1", exptype[4]):
+                    shutil.move(file, os.path.join(expfolderpath, arrexptype[4]))
+                elif re.match("R2", exptype[4]):
+                    shutil.move(file, os.path.join(expfolderpath, arrexptype[4]))
+                else:
+                    print("Error")
