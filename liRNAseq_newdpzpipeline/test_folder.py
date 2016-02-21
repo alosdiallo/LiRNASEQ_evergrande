@@ -16,9 +16,12 @@ args = parser.parse_args()
 dirs = os.listdir(args.p)
 
 for file in dirs:
-    exptype = file.split('_')
+    exptype = []
+    exptype = file.rsplit('_', 5)
+    print(exptype)
     arrexptype = []
-    arrexptype.extend(exptype[2])
+    arrexptype.append(exptype[2])
+    print(len(arrexptype))
     for expfolders in arrexptype:
         expfolderpath = os.path.join(args.p, expfolders)
         if not os.path.exists(expfolderpath):
