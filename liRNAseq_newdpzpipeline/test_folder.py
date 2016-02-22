@@ -17,19 +17,20 @@ dirs = os.listdir(args.p)
 
 for file in dirs:
     if file.endswith(".bz2"):
-        exptype = []
-        exptype = file.split('_')
-        print(exptype)
-        arrexptype = []
-        arrexptype.append(exptype[2])
-        print(len(arrexptype))
-        for expfolders in arrexptype:
+        experiment = []
+        experiment = file.split('_')
+        print(experiment[2])
+        print(experiment[4])
+        arrexperiment = []
+        arrexperiment.append(experiment[2])
+        print(len(arrexperiment))
+        for expfolders in arrexperiment:
             expfolderpath = os.path.join(args.p, expfolders)
             if not os.path.exists(expfolderpath):
                 os.mkdir(expfolderpath)
-                if re.match("R1", exptype[4]):
-                    shutil.move(file, os.path.join(expfolderpath, arrexptype[4]))
-                elif re.match("R2", exptype[4]):
-                    shutil.move(file, os.path.join(expfolderpath, arrexptype[4]))
+                if file.endswith("R1.fastq.bz2"):
+                    shutil.move(file, os.path.join(expfolderpath, arrexperiment[4]))
+                elif file.endswith("R2.fastq.bz2"):
+                    shutil.move(file, os.path.join(expfolderpath, arrexperiment[4]))
                 else:
                     print("Error")
