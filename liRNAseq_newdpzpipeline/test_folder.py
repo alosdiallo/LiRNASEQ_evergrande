@@ -28,20 +28,14 @@ for file in dirs:
             expfolderpath = os.path.join(args.p, expfolders)
             if not os.path.exists(expfolderpath):
                 os.mkdir(expfolderpath)
+                x = os.path.join(expfolderpath, file)
                 if file.endswith("R1.fastq.bz2"):
-                    print(file)
-                    shutil.move(file, os.path.join(expfolderpath, file))
+                    print(x)
+                    os.mkdir(x)
+                    #shutil.move(file, x)
                 elif file.endswith("R2.fastq.bz2"):
-                    print(file)
-                    shutil.move(file, os.path.join(expfolderpath, file))
-                else:
-                    print("File name R1 and R2 not found")
-            else:
-                if file.endswith("R1.fastq.bz2"):
-                    print(file)
-                    shutil.move(file, os.path.join(expfolderpath, file))
-                elif file.endswith("R2.fastq.bz2"):
-                    print(file)
-                    shutil.move(file, os.path.join(expfolderpath, file))
+                    print(x)
+                    os.mkdir(x)
+                    #shutil.move(file, x)
                 else:
                     print("File name R1 and R2 not found")
