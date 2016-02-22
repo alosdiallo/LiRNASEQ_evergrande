@@ -19,18 +19,20 @@ for file in dirs:
     if file.endswith(".bz2"):
         experiment = []
         experiment = file.split('_')
-        print(experiment[2])
-        print(experiment[4])
-        arrexperiment = []
-        arrexperiment.append(experiment[2])
-        print(len(arrexperiment))
-        for expfolders in arrexperiment:
+        #print(experiment[2])
+        #print(experiment[4])
+        array_experiment = []
+        array_experiment.append(experiment[2])
+        #print(len(arrexperiment))
+        for expfolders in array_experiment:
             expfolderpath = os.path.join(args.p, expfolders)
             if not os.path.exists(expfolderpath):
                 os.mkdir(expfolderpath)
                 if file.endswith("R1.fastq.bz2"):
-                    shutil.move(file, os.path.join(expfolderpath, arrexperiment[4]))
+                    print(file)
+                    #shutil.move(file, os.path.join(expfolderpath, arrexperiment))
                 elif file.endswith("R2.fastq.bz2"):
-                    shutil.move(file, os.path.join(expfolderpath, arrexperiment[4]))
+                    print(file)
+                    #shutil.move(file, os.path.join(expfolderpath, arrexperiment))
                 else:
-                    print("Error")
+                    print("File name R1 and R2 not found")
