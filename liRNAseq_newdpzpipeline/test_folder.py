@@ -36,3 +36,12 @@ for file in dirs:
                     #shutil.move(file, os.path.join(expfolderpath, arrexperiment))
                 else:
                     print("File name R1 and R2 not found")
+            else:
+                if file.endswith("R1.fastq.bz2"):
+                    print(file)
+                    #shutil.move(file, os.path.join(expfolderpath, arrexperiment))
+                elif file.endswith("R2.fastq.bz2"):
+                    print(file)
+                    #shutil.move(file, os.path.join(expfolderpath, arrexperiment))
+                else:
+                    print("File name R1 and R2 not found")
