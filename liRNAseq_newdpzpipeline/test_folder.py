@@ -27,16 +27,8 @@ for file in dirs:
         for expfolders in array_experiment:
             expfolderpath = os.path.join(args.p, expfolders)
             fullpath = os.path.join(args.p, file)
-            #if not os.path.exists(expfolderpath):
-            #os.mkdir(expfolderpath)
-            #x = os.path.join(expfolderpath, file)
-            if file.endswith("R1.fastq.bz2"):
-                #print(file)
-                #os.mkdir(x)
-                shutil.move(fullpath, expfolderpath)
-            elif file.endswith("R2.fastq.bz2"):
-                #print(file)
-                #os.mkdir(x)
-                shutil.move(fullpath, expfolderpath)
-            else:
-                print("File name R1 and R2 not found")
+            if not os.path.exists(expfolderpath):
+                os.mkdir(expfolderpath)
+                full = args.p + "/" + "*" + expfolders + "*.bz2" 
+                print(full)
+                os.system("cp " + full + " " + expfolderpath)

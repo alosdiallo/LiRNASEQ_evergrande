@@ -17,19 +17,26 @@ parser.add_argument("-ul", help="The start of the UMI")#accepts the UMI length
 args = parser.parse_args()
 
 currentPath = os.path.dirname(os.path.realpath(__file__))
-for s in glob.glob(args.p):
-    organized = s.rsplit('_')[3]
-    y = []
-    y.append(os.path.join(args.p, organized)
-    for x in y:
-        if x == x + 1
-            os.mkdir(x)
-            if y[5] == "R1"
-                shutil.move(s, os.path.join(s, os.path.basename(s)))
-            elif y[5] == "R2"
-                shutil.move(s, os.path.join(s, os.path.basename(s)))
-            else
 
+dirs = os.listdir(args.p)
+
+for file in dirs:
+    if file.endswith(".bz2"):
+        experiment = []
+        experiment = file.split('_')
+        #print(experiment[2])
+        #print(experiment[4])
+        array_experiment = []
+        array_experiment.append(experiment[2])
+        #print(len(arrexperiment))
+        for expfolders in array_experiment:
+            expfolderpath = os.path.join(args.p, expfolders)
+            fullpath = os.path.join(args.p, file)
+            if not os.path.exists(expfolderpath):
+                os.mkdir(expfolderpath)
+                full = args.p + "/" + "*" + expfolders + "*.bz2" 
+                print(full)
+                os.system("cp " + full + " " + expfolderpath)
 
 #print ("Path - " + args.p)
 #print ("CurrentPath - " + currentPath)
