@@ -1,1 +1,2 @@
-python /groups/immdiv-bioinfo/scripts/RUN.py -p /groups/immdiv-bioinfo/test/test -g /groups/immdiv-bioinfo/evergrande/yael/genomes/NOD_custom_mm10/genome -t /groups/immdiv-bioinfo/evergrande/yael/genomes/NOD_custom_mm10/known_mm10 -time 36 -bc 12 -u 4
+python /groups/immdiv-bioinfo/scripts/RUN.py -p /groups/immdiv-bioinfo/test/test -g /groups/immdiv-bioinfo/evergrande/yael/genomes/NOD_custom_mm10/genome -t /groups/immdiv-bioinfo/evergrande/yael/genomes/NOD_custom_mm10/known_mm10 -time 36 -bc 12 -u 4 
+./runScript.sh /groups/immdiv-bioinfo/test/test 36 /groups/immdiv-bioinfo/evergrande/yael/genomes/NOD_custom_mm10/genome /groups/immdiv-bioinfo/evergrande/yael/genomes/NOD_custom_mm10/known_mm10 4 12
