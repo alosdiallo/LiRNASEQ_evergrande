@@ -1,16 +1,3 @@
-#!/bin/bash
-# Run where the fastq.bz2 files are
-# usage: /groups/cbdm_lab/dp133/scripts/liRNAseq_pipeline_2.sh [dir_where_fastq.bz2_files_are] [prefix]
-
-module load seq/fastx/0.0.13
-module load seq/tophat/2.0.10
-module load seq/bowtie/2.1.0
-module load seq/samtools/0.1.19
-#module load seq/htseq/0.6.1
-module load seq/BEDtools/2.23.0
-module load stats/R/3.2.1
-
-echo "Working directory : " $1
 
 cd $1 # working directory where the fastq.bz2 files are
 prefix=$2
@@ -18,8 +5,11 @@ genome=$3
 tran=$4
 umi=$5
 bc=$6
+dirCode=$7
+expdir=$8
+bedFile=$9
 bcStart=$umi+1
-resultMaker="python result_dir_maker.py"
+resultMaker="python $dirCode/result_dir_maker.py"
 
 eval $resultMaker
 
@@ -43,8 +33,8 @@ fastx_trimmer -Q 33 -f 1 -l $umi -i ../*R2.fastq -o umi.fastq
 fastx_trimmer -Q 33 -f 1 -l 30 -i ../*R1.fastq -o R1.fastq
 
 echo "Merging bc, umi and R1 into one file..."
-merge_fastq.pl bc.fastq umi.fastq bcumi.fastq
-merge_fastq.pl bcumi.fastq R1.fastq bcumiR1.fastq
+$dirCode/merge_fastq.pl bc.fastq umi.fastq bcumi.fastq
+$dirCode/merge_fastq.pl bcumi.fastq R1.fastq bcumiR1.fastq
 
 #rm bc.fastq umi.fastq R1.fastq R2.fastq bcumi.fastq
 
@@ -54,11 +44,10 @@ fastq_quality_filter -v -Q 33 -q 20 -p 80 -i bcumiR1.fastq -o bcumiR1.filtered.f
 #rm bcumiR1.fastq
 
 echo " Moving barcode to header: make sure UMI is on 5th position in the ID..."
-/add_umi_to_id.pl S bcumiR1.filtered.fastq bcumiR1.filtered.bcumitoid.fq 1 8 9 4 #Where are these numbers coming from?
+$dirCode/add_umi_to_id.pl S bcumiR1.filtered.fastq bcumiR1.filtered.bcumitoid.fq 1 8 9 4 #Where are these numbers coming from?
 
 echo "Trimming out bc and umi files..."
 fastx_trimmer -Q 33 -f 13 -i bcumiR1.filtered.bcumitoid.fq -o $prefix.fq #What does this do?
 
 echo "Map and correct for UMIs..."
-MapAndCountUMIs.sh $prefix.fq $prefix $genome $tran $prefix
-
+$dirCode/MapAndCountUMIs.sh $prefix $prefix $genome $tran $expdir $dirCode $bedFile
