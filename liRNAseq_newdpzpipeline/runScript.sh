@@ -3,11 +3,21 @@
 #cd /groups/bpf-evergrande/data/FC_01648/Unaligned_1_PF_mm1/Data/Project_yael
 
 #R libraries taken from /groups/cbdm_lab/dp133/R_libraries
-#export R_LIBS="/groups/bpf-evergrande/tools/cbdm_R_libraries/R_libraries"
+export R_LIBS="/groups/cbdm_lab/dp133/R_libraries"
+#editing by Alos
+
+
 expdir=$1
 time=$2
 genome=$3
 tran=$4
 umi=$5
 bc=$6
-for dir in expdir ; do echo $dir ; bsub -q mcore  -n 2 -W $time -R "rusage[mem=24000]" -o $dir.liRNAseq.log bash liRNAseq_pipeline_2.sh $dir $dir $genome $tran $umi $bc; done
+bedFile=$7
+dirCurrent=$(pwd)
+
+
+cd $expdir
+
+
+for dir in S*; do echo $dir ; bsub -q mcore  -n 2 -W $time -R "rusage[mem=24000]" -o $dir.liRNAseq.log $dirCurrent/liRNAseq_pipeline_2.sh $dir $dir $genome $tran $umi $bc $dirCurrent $expdir $bedFile; done
