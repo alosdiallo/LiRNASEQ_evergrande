@@ -1,14 +1,22 @@
 #!/bin/sh
-# David Zemmour
+# David Zemmour, Ashley Sun, Alos Diallo
 # usage: /groups/cbdm_lab/dp133/scripts/allon_scripts/MapAndCountUMIs.sh [path_to_the_folder_containing_fastq_file] [prefix]
 
-cd $1
+
+
+
 prefix=$2
 genome=$3
-tran=$4
+transcriptome=$4
 path=$5
-resultPath=$prefix + "\Results"
+dirCode=$6
+bedFile=$7
+RPath="Results"
+resultpath=$path/$RPath
 
+cd $path/$1
+lecseq="lecseq"
+lecseqPath=$path/$1/$lecseq
 module load seq/fastx/0.0.13
 module load seq/tophat/2.0.10
 module load seq/bowtie/2.1.0
@@ -21,7 +29,7 @@ echo "Running tophat..."
 mkdir thoutfs
 #to make the transcriptome reference: tophat -p 2 -G genes.gtf --transcriptome-index=/groups/cbdm_lab/dp133/genomes/hg19/transcriptome /groups/cbdm_lab/dp133/genomes/hg19/genome
 #tophat -p 4 --library-type fr-firststrand --read-mismatches 5 --read-gap-length 5 --read-edit-dist 5 --no-coverage-search --segment-length 15 --transcriptome-index /groups/cbdm_lab/dp133/NOD_custom_mm10/known_mm10 -o ./thoutfs /groups/cbdm_lab/dp133/NOD_custom_mm10/genome $prefix.fq
-tophat -p 4 --library-type fr-firststrand --read-mismatches 2 --read-gap-length 2 --read-edit-dist 3 --no-coverage-search --segment-length 15 --transcriptome-only --transcriptome-max-hits 1 --prefilter-multihits --transcriptome-index $tran -o ./thoutfs $genome $prefix.fq
+tophat -p 4 --library-type fr-firststrand --read-mismatches 2 --read-gap-length 2 --read-edit-dist 3 --no-coverage-search --segment-length 15 --transcriptome-only --transcriptome-max-hits 1 --prefilter-multihits --transcriptome-index $transcriptome -o ./thoutfs $genome $lecseqPath/$prefix.fq
 #tophat2 -p 2 --library-type fr-firststrand --read-mismatches 5 --read-gap-length 5 --read-edit-dist 5 --no-coverage-search --segment-length 15 --transcriptome-index /groups/cbdm_lab/dp133/genomes/hg19/transcriptome -o ./thoutfs /groups/cbdm_lab/dp133/genomes/hg19/genome $prefix.R1
 
 cd thoutfs
@@ -37,7 +45,7 @@ samtools view -b -q 10 -F 256 accepted_hits.bam > accepted_hits.uniqalign.bam
 	#paste 1 2 3 > known_mm10_exons.bed
 
 echo "Annotating bam file with gene name..."
-tagBam -s -i accepted_hits.uniqalign.bam -files $genome -names > accepted_hits.uniqalign.genenames.bam
+tagBam -s -i accepted_hits.uniqalign.bam -files $dirCode/$bedFile -names > accepted_hits.uniqalign.genenames.bam
 mv accepted_hits.uniqalign.genenames.bam $prefix.uniqalign.genenames.bam
 
 echo "Sorting and indexing bam file"
@@ -46,7 +54,8 @@ samtools index $prefix.uniqalign.genenames.sorted.bam
 
 echo "UMI correction: writing correcting bam file and count file..."
 #Rscript /groups/cbdm_lab/dp133/scripts/umi_scripts/CorrectAndCountUMIs.R exons $prefix.uniqalign.genenames.sorted.bam
-Rscript CorrectAndCountUMIsEditDist.R exons $prefix.uniqalign.genenames.sorted.bam
+
+Rscript $dirCode/CorrectAndCountUMIsEditDist.R exons $prefix.uniqalign.genenames.sorted.bam
 
 echo "Stats..."
 echo $prefix > names.txt
@@ -64,5 +73,5 @@ rm *genenames*
 rm accepted_hits.uniqalign.bam
 
 echo "Copying files..."
-cp resultPath* ../../
+cp $prefix* ../../
 
