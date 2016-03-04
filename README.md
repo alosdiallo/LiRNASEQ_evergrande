@@ -30,6 +30,7 @@ The LiRNASEQ_evergrande is used to analyze single cell RNA Seq experiments, gene
             Current Path of the code directory
     Example
         RUN.py -p C:\..\S9 -t 1 -time 36 -bc 12 -u 3 -c C:\..\LiRNASEQ_evergrande\liRNAseq_newdpzpipeline
+        To see how it was run by the developers look in Testing_Command_line.txt
         
 References
 --------------------
