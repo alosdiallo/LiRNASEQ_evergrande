@@ -25,11 +25,8 @@ for file in dirs:
     if file.endswith(".bz2"):
         experiment = []
         experiment = file.split('_')
-        #print(experiment[2])
-        #print(experiment[4])
         array_experiment = []
         array_experiment.append(experiment[2])
-        #print(len(arrexperiment))
         for expfolders in array_experiment:
             expfolderpath = os.path.join(args.p, expfolders)
             fullpath = os.path.join(args.p, file)
@@ -39,8 +36,6 @@ for file in dirs:
                 print(full)
                 os.system("cp " + full + " " + expfolderpath)
 
-#print ("Path - " + args.p)
-#print ("CurrentPath - " + currentPath)
 
 os.system("sed -i -e 's/\r$//' runScript.sh")
 
