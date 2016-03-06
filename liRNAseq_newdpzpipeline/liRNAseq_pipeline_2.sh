@@ -1,3 +1,16 @@
+#!/bin/bash
+# Run where the fastq.bz2 files are
+# usage: /groups/cbdm_lab/dp133/scripts/liRNAseq_pipeline_2.sh [dir_where_fastq.bz2_files_are] [prefix]
+
+module load seq/fastx/0.0.13
+module load seq/tophat/2.0.10
+module load seq/bowtie/2.1.0
+module load seq/samtools/0.1.19
+#module load seq/htseq/0.6.1
+module load seq/BEDtools/2.23.0
+module load stats/R/3.2.1
+
+echo "Working directory : " $1
 
 cd $1 # working directory where the fastq.bz2 files are
 prefix=$2
@@ -8,10 +21,12 @@ bc=$6
 dirCode=$7
 expdir=$8
 bedFile=$9
-bcStart=$umi+1
-resultMaker="python $dirCode/result_dir_maker.py"
 
-eval $resultMaker
+bcStart=$umi+1
+
+mkdir $expdir/$prefix.result 
+result_directory=$expdir/$prefix.result
+
 
 echo "Merging L1 and L2 for R1..."
 cat *L00*_R1.fastq.bz2 > R1.fastq.bz2
@@ -50,4 +65,4 @@ echo "Trimming out bc and umi files..."
 fastx_trimmer -Q 33 -f 13 -i bcumiR1.filtered.bcumitoid.fq -o $prefix.fq #What does this do?
 
 echo "Map and correct for UMIs..."
-$dirCode/MapAndCountUMIs.sh $prefix $prefix $genome $tran $expdir $dirCode $bedFile
+$dirCode/MapAndCountUMIs.sh $prefix $prefix $genome $tran $expdir $dirCode $bedFile $result_directory
