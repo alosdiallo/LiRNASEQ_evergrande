@@ -1,0 +1,135 @@
+Working directory :  S10
+Merging L1 and L2 for R1...
+Merging L1 and L2 for R2...
+Bunzipping R1...
+  R1.fastq.bz2: done
+Bunzip R2...
+  R2.fastq.bz2: done
+Trimming barcode R2:5-12, UMI R2:1-4 and R1:1-30...
+Merging bc, umi and R1 into one file...
+Filtering...
+Quality cut-off: 20
+Minimum percentage: 80
+Input: 84542 reads.
+Output: 81394 reads.
+discarded 3148 (3%) low-quality reads.
+ Moving barcode to header: make sure UMI is on 5th position in the ID...
+Total of 81394 sequences
+Trimming out bc and umi files...
+Map and correct for UMIs...
+Running tophat...
+
+[2016-03-06 16:41:11] Beginning TopHat run (v2.0.10)
+-----------------------------------------------
+[2016-03-06 16:41:11] Checking for Bowtie
+		  Bowtie version:	 2.1.0.0
+[2016-03-06 16:41:11] Checking for Samtools
+		Samtools version:	 0.1.19.0
+[2016-03-06 16:41:11] Checking for Bowtie index files (transcriptome)..
+[2016-03-06 16:41:11] Checking for Bowtie index files (genome)..
+[2016-03-06 16:41:11] Checking for reference FASTA file
+[2016-03-06 16:41:11] Generating SAM header for /groups/immdiv-bioinfo/evergrande/yael/genomes/NOD_custom_mm10/genome
+[2016-03-06 16:41:23] Reading known junctions from GTF file
+[2016-03-06 16:41:27] Pre-filtering multi-mapped left reads
+[2016-03-06 16:41:27] Mapping S10 to genome genome with Bowtie2 
+[2016-03-06 16:41:42] Preparing reads
+	 left reads: min. length=31, max. length=31, 77051 kept reads (4343 discarded)
+[2016-03-06 16:41:43] Using pre-built transcriptome data..
+[2016-03-06 16:41:47] Mapping left_kept_reads to transcriptome known_mm10 with Bowtie2 
+[2016-03-06 16:41:53] Reporting output tracks
+-----------------------------------------------
+[2016-03-06 16:44:04] A summary of the alignment counts can be found in ./thoutfs/align_summary.txt
+[2016-03-06 16:44:04] Run complete: 00:02:53 elapsed
+Removing multiple alignments and low MAPQ reads
+Annotating bam file with gene name...
+Sorting and indexing bam file
+UMI correction: writing correcting bam file and count file...
+command line: Rscript add_umi_id.R exons S10.uniqalign.genenames.sorted.bam 
+current working directory: /groups/immdiv-bioinfo/evergrande/yael/FC_01744/Project_yael/mouse_S9-S10/S10/thoutfs 
+working on file: S10.uniqalign.genenames.sorted.bam 
+counting reads in: exons 
+PART1: Correcting for UMIs:
+Reads bam and makes a data frame of it
+   user  system elapsed 
+  0.452   0.040   0.522 
+Keeps only reads with a gene name assigned...
+   user  system elapsed 
+  0.071   0.001   0.072 
+Extracts UMIs from the read's IDs...
+Filters UMIs to keep distinct ones per gene...
+   user  system elapsed 
+  0.073   0.005   0.088 
+Writes the UMI corrected bam file...
+   user  system elapsed 
+  0.193   0.051   0.272 
+PART2: Counts reads in genes
+GRangesList object of length 23725:
+$100009600 
+GRanges object with 7 ranges and 2 metadata columns:
+      seqnames               ranges strand |   exon_id   exon_name
+         <Rle>            <IRanges>  <Rle> | <integer> <character>
+  [1]     chr9 [21062393, 21062717]      - |    133241        <NA>
+  [2]     chr9 [21062894, 21062987]      - |    133242        <NA>
+  [3]     chr9 [21063314, 21063396]      - |    133243        <NA>
+  [4]     chr9 [21066024, 21066377]      - |    133244        <NA>
+  [5]     chr9 [21066940, 21067925]      - |    133245        <NA>
+  [6]     chr9 [21068030, 21068117]      - |    133246        <NA>
+  [7]     chr9 [21073075, 21075496]      - |    133248        <NA>
+
+$100009609 
+GRanges object with 6 ranges and 2 metadata columns:
+      seqnames               ranges strand | exon_id exon_name
+  [1]     chr7 [84940169, 84941088]      - |  108923      <NA>
+  [2]     chr7 [84943141, 84943264]      - |  108924      <NA>
+  [3]     chr7 [84943504, 84943722]      - |  108925      <NA>
+  [4]     chr7 [84946200, 84947000]      - |  108926      <NA>
+  [5]     chr7 [84947372, 84947651]      - |  108927      <NA>
+  [6]     chr7 [84963816, 84964009]      - |  108928      <NA>
+
+$100009614 
+GRanges object with 1 range and 2 metadata columns:
+      seqnames               ranges strand | exon_id exon_name
+  [1]    chr10 [77711446, 77712009]      + |  142611      <NA>
+
+...
+<23722 more elements>
+-------
+seqinfo: 66 sequences (1 circular) from mm10 genome
+Writes the counts file...
+Stats...
+Removing files...
+Copying files...
+/home/ad249/immdiv-bioinfo/evergrande/yael/liRNAseq_newdpzpipeline/MapAndCountUMIs.sh: line 75: /home/ad249/immdiv-bioinfo/evergrande/yael/FC_01744/Project_yael/mouse_S9-S10: is a directory
+cp: omitting directory `/home/ad249/immdiv-bioinfo/evergrande/yael/FC_01744/Project_yael/mouse_S9-S10/S10/thoutfs/logs'
+
+------------------------------------------------------------
+Sender: LSF System <lsfadmin@clarinet001-172.orchestra>
+Subject: Job 6033980: </home/ad249/immdiv-bioinfo/evergrande/yael/liRNAseq_newdpzpipeline/liRNAseq_pipeline_2.sh S10 S10 /groups/immdiv-bioinfo/evergrande/yael/genomes/NOD_custom_mm10/genome /groups/immdiv-bioinfo/evergrande/yael/genomes/NOD_custom_mm10/known_mm10 4 12 /home/ad249/immdiv-bioinfo/evergrande/yael/liRNAseq_newdpzpipeline /home/ad249/immdiv-bioinfo/evergrande/yael/FC_01744/Project_yael/mouse_S9-S10 known_mm10_exons.bed> Done
+
+Job </home/ad249/immdiv-bioinfo/evergrande/yael/liRNAseq_newdpzpipeline/liRNAseq_pipeline_2.sh S10 S10 /groups/immdiv-bioinfo/evergrande/yael/genomes/NOD_custom_mm10/genome /groups/immdiv-bioinfo/evergrande/yael/genomes/NOD_custom_mm10/known_mm10 4 12 /home/ad249/immdiv-bioinfo/evergrande/yael/liRNAseq_newdpzpipeline /home/ad249/immdiv-bioinfo/evergrande/yael/FC_01744/Project_yael/mouse_S9-S10 known_mm10_exons.bed> was submitted from host <loge.orchestra> by user <ad249> in cluster <hms_orchestra>.
+Job was executed on host(s) <2*clarinet001-172.orchestra>, in queue <mcore>, as user <ad249> in cluster <hms_orchestra>.
+</home/ad249> was used as the home directory.
+</home/ad249/immdiv-bioinfo/evergrande/yael/FC_01744/Project_yael/mouse_S9-S10> was used as the working directory.
+Started at Sun Mar  6 16:40:55 2016
+Results reported at Sun Mar  6 16:44:19 2016
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+/home/ad249/immdiv-bioinfo/evergrande/yael/liRNAseq_newdpzpipeline/liRNAseq_pipeline_2.sh S10 S10 /groups/immdiv-bioinfo/evergrande/yael/genomes/NOD_custom_mm10/genome /groups/immdiv-bioinfo/evergrande/yael/genomes/NOD_custom_mm10/known_mm10 4 12 /home/ad249/immdiv-bioinfo/evergrande/yael/liRNAseq_newdpzpipeline /home/ad249/immdiv-bioinfo/evergrande/yael/FC_01744/Project_yael/mouse_S9-S10 known_mm10_exons.bed
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time   :    207.91 sec.
+    Max Memory :      3093 MB
+    Max Swap   :      3864 MB
+
+    Max Processes  :         9
+    Max Threads    :        13
+
+The output (if any) is above this job summary.
+
