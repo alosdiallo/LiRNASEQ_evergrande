@@ -16,9 +16,6 @@ bc=$6
 bedFile=$7
 dirCurrent=$8
 
-echo $dirCurrent
-
-
 cd $expdir
 
 
