@@ -65,8 +65,4 @@ echo "Trimming out bc and umi files..."
 fastx_trimmer -Q 33 -f 13 -i bcumiR1.filtered.bcumitoid.fq -o $prefix.fq #What does this do?
 
 echo "Map and correct for UMIs..."
-<<<<<<< HEAD
 $dirCode/MapAndCountUMIs.sh $prefix $prefix $genome $tran $expdir $dirCode $bedFile $result_directory
-=======
-$dirCode/MapAndCountUMIs.sh $prefix $prefix $genome $tran $expdir $dirCode $bedFile $result_directory
->>>>>>> origin/master
