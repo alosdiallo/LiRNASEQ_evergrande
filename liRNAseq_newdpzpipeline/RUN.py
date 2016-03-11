@@ -14,15 +14,11 @@ parser.add_argument("-t", help="path of the transcriptome")#accepts the transcri
 parser.add_argument("-time", help="The amount of hours the genome will take to process")#accepts the time parameter
 parser.add_argument("-bc", help="Length of barcode")#accepts the barcode length
 parser.add_argument("-ul", help="UML lenght")#accepts the UMI length
-<<<<<<< HEAD
 parser.add_argument("-b", help="Path to the bed file")#What is the name of your bed file
-=======
-parser.add_argument("-b", help="Name of Bed File")#What is the name of your bed file
->>>>>>> origin/master
 args = parser.parse_args()
 
 currentPath = os.path.dirname(os.path.realpath(__file__))
-print(currentPath)
+runScriptPath = currentPath + "/runScript.sh"
 dirs = os.listdir(args.p)
 
 for file in dirs:
@@ -41,10 +37,7 @@ for file in dirs:
                 os.system("cp " + full + " " + expfolderpath)
 
 
-os.system("sed -i -e 's/\r$//' runScript.sh")
+os.system("sed -i -e 's/\r$//' " + runScriptPath)
 
-<<<<<<< HEAD
-os.system(currentPath + "/runScript.sh " + args.p + " " + args.time + " " + args.g + " " + args.t + " " + args.ul + " " + args.bc + " " + args.b + " " + currentPath)#calls the runScript and passes variables to it
-=======
-os.system("./runScript.sh " + args.p + " " + args.time + " " + args.g + " " + args.t + " " + args.ul + " " + args.bc + " " + args.b)#calls the runScript and passes variables to it
->>>>>>> origin/master
+os.system(runScriptPath + " " + args.p + " " + args.time + " " + args.g + " " + args.t + " " + args.ul + " " + args.bc + " " + args.b + " " + currentPath)#calls the runScript and passes variables to it
+
