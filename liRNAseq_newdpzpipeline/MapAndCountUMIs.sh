@@ -1,18 +1,16 @@
 #!/bin/sh
 # David Zemmour, Ashley Sun, Alos Diallo
 # usage: /groups/cbdm_lab/dp133/scripts/allon_scripts/MapAndCountUMIs.sh [path_to_the_folder_containing_fastq_file] [prefix]
-
-
-
-
 prefix=$2
 genome=$3
 transcriptome=$4
 path=$5
 dirCode=$6
 bedFile=$7
+result_directory=$8
+
 RPath="Results"
-resultpath=$path/$RPath
+
 
 cd $path/$1
 lecseq="lecseq"
@@ -34,6 +32,7 @@ tophat -p 4 --library-type fr-firststrand --read-mismatches 2 --read-gap-length 
 
 cd thoutfs
 
+
 echo "Removing multiple alignments and low MAPQ reads"
 samtools view -b -q 10 -F 256 accepted_hits.bam > accepted_hits.uniqalign.bam
 #and reads with low mapping quality: samtools view -b -q 10 -F 256 accepted_hits.bam > accepted_hits.uniqalign.bam
@@ -45,7 +44,7 @@ samtools view -b -q 10 -F 256 accepted_hits.bam > accepted_hits.uniqalign.bam
 	#paste 1 2 3 > known_mm10_exons.bed
 
 echo "Annotating bam file with gene name..."
-tagBam -s -i accepted_hits.uniqalign.bam -files $dirCode/$bedFile -names > accepted_hits.uniqalign.genenames.bam
+tagBam -s -i accepted_hits.uniqalign.bam -files $bedFile -names > accepted_hits.uniqalign.genenames.bam
 mv accepted_hits.uniqalign.genenames.bam $prefix.uniqalign.genenames.bam
 
 echo "Sorting and indexing bam file"
@@ -55,7 +54,7 @@ samtools index $prefix.uniqalign.genenames.sorted.bam
 echo "UMI correction: writing correcting bam file and count file..."
 #Rscript /groups/cbdm_lab/dp133/scripts/umi_scripts/CorrectAndCountUMIs.R exons $prefix.uniqalign.genenames.sorted.bam
 
-Rscript $dirCode/CorrectAndCountUMIsEditDist.R exons $prefix.uniqalign.genenames.sorted.bam
+Rscript $dirCode/CorrectAndCountUMIsEditDist.R exons $prefix.uniqalign.genenames.sorted.bam 
 
 echo "Stats..."
 echo $prefix > names.txt
@@ -73,5 +72,9 @@ rm *genenames*
 rm accepted_hits.uniqalign.bam
 
 echo "Copying files..."
+$path
+thoutfs="thoutfs"
+cp $path/$prefix/$thoutfs/* $result_directory
 cp $prefix* ../../
-
+cp $prefix* $result_directory
+cp $lecseqPath/* $result_directory

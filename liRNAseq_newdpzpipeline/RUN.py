@@ -12,23 +12,21 @@ parser.add_argument("-p", help="path of the experiment")#accepts the path parame
 parser.add_argument("-g", help="path of the genome")#accepts the genome parameter
 parser.add_argument("-t", help="path of the transcriptome")#accepts the transcriptome parameter
 parser.add_argument("-time", help="The amount of hours the genome will take to process")#accepts the time parameter
-parser.add_argument("-bc", help="The start of the barcode")#accepts the barcode length
-parser.add_argument("-ul", help="The start of the UMI")#accepts the UMI length
+parser.add_argument("-bc", help="Length of barcode")#accepts the barcode length
+parser.add_argument("-ul", help="UML lenght")#accepts the UMI length
+parser.add_argument("-b", help="Path to the bed file")#What is the name of your bed file
 args = parser.parse_args()
 
 currentPath = os.path.dirname(os.path.realpath(__file__))
-
+print(currentPath)
 dirs = os.listdir(args.p)
 
 for file in dirs:
     if file.endswith(".bz2"):
         experiment = []
         experiment = file.split('_')
-        #print(experiment[2])
-        #print(experiment[4])
         array_experiment = []
         array_experiment.append(experiment[2])
-        #print(len(arrexperiment))
         for expfolders in array_experiment:
             expfolderpath = os.path.join(args.p, expfolders)
             fullpath = os.path.join(args.p, file)
@@ -38,9 +36,7 @@ for file in dirs:
                 print(full)
                 os.system("cp " + full + " " + expfolderpath)
 
-#print ("Path - " + args.p)
-#print ("CurrentPath - " + currentPath)
 
 os.system("sed -i -e 's/\r$//' runScript.sh")
 
-os.system("./runScript.sh " + args.p + " " + args.time + " " + args.g + " " + args.t + " " + args.ul + " " + args.bc)#calls the runScript and passes variables to it
+os.system(currentPath + "/runScript.sh " + args.p + " " + args.time + " " + args.g + " " + args.t + " " + args.ul + " " + args.bc + " " + args.b + " " + currentPath)#calls the runScript and passes variables to it
