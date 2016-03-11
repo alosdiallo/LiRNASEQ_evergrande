@@ -8,10 +8,14 @@ path=$5
 dirCode=$6
 bedFile=$7
 result_directory=$8
+<<<<<<< HEAD
 
 RPath="Results"
 
+=======
+>>>>>>> origin/master
 
+RPath="Results"
 cd $path/$1
 lecseq="lecseq"
 lecseqPath=$path/$1/$lecseq
