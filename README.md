@@ -17,6 +17,7 @@ The LiRNASEQ_evergrande is used to analyze single cell RNA Seq experiments, gene
             -bc BC	Barcode length(plus the UMI length)
             -u U        UMI Length
             -b B        Name of Bed File
+            -r R        Location of Rda files
         -p 
             directory path of the genome
         -t
@@ -28,16 +29,20 @@ The LiRNASEQ_evergrande is used to analyze single cell RNA Seq experiments, gene
         -u
             UMI length
         -b B
-            Name of Bed File            
+            Name of Bed File  
+        -R R
+            Location of Rda files            
     Example
         python ./RUN.py -p /home/ad249/immdiv-bioinfo/evergrande/yael/FC_01744/Project_yael/mouse_S9-S10 -g
         /groups/immdiv-bioinfo/evergrande/yael/genomes/NOD_custom_mm10/genome -t
         /groups/immdiv-bioinfo/evergrande/yael/genomes/NOD_custom_mm10/known_mm10 -time 36 -bc 12 -u 4 -b known_mm10_exons.bed
+        -r /groups/cbdm_lab/dp133/scripts/allon_scripts/
         
 References
 --------------------
 	David Puyraimond-Zemmour - Harvard Medical School
   	Ashley Sun - Harvard Medical School
   	Alos Diallo - Harvard Medical School
+  	Jiang, Yu-Shan - Harvard Medical School
   	Evergrande Center for Immunologic Diseases
   	http://evergrande.hms.harvard.edu/
