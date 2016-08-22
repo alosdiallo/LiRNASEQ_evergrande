@@ -9,10 +9,10 @@ module load seq/samtools/0.1.19
 #module load seq/htseq/0.6.1
 module load seq/BEDtools/2.23.0
 module load stats/R/3.2.1
+dir_home=$1
+echo "Working directory : " $dir_home
 
-echo "Working directory : " $1
-
-cd $1 # working directory where the fastq.bz2 files are
+cd $dir_home # working directory where the fastq.bz2 files are
 prefix=$2
 genome=$3
 tran=$4
@@ -21,6 +21,11 @@ bc=$6
 dirCode=$7
 expdir=$8
 bedFile=$9
+rDA_path=${10}
+
+echo "GOLD"
+echo $rDA_path
+echo "GOLD"
 
 bcStart=$umi+1
 
@@ -65,4 +70,4 @@ echo "Trimming out bc and umi files..."
 fastx_trimmer -Q 33 -f 13 -i bcumiR1.filtered.bcumitoid.fq -o $prefix.fq #What does this do?
 
 echo "Map and correct for UMIs..."
-$dirCode/MapAndCountUMIs.sh $prefix $prefix $genome $tran $expdir $dirCode $bedFile $result_directory
+$dirCode/MapAndCountUMIs.sh $prefix $prefix $genome $tran $expdir $dirCode $bedFile $result_directory $rDA_path
