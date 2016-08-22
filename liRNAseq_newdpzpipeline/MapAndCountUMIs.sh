@@ -8,9 +8,8 @@ path=$5
 dirCode=$6
 bedFile=$7
 result_directory=$8
-
+rda_directory=$9
 RPath="Results"
-
 
 cd $path/$1
 lecseq="lecseq"
@@ -34,7 +33,7 @@ cd thoutfs
 
 
 echo "Removing multiple alignments and low MAPQ reads"
-samtools view -b -q 10 -F 256 accepted_hits.bam > accepted_hits.uniqalign.bam
+samtools view -@ 4 -b -q 10 -F 256 accepted_hits.bam > accepted_hits.uniqalign.bam
 #and reads with low mapping quality: samtools view -b -q 10 -F 256 accepted_hits.bam > accepted_hits.uniqalign.bam
 
 #Make bed file with exons: do only once
@@ -48,13 +47,12 @@ tagBam -s -i accepted_hits.uniqalign.bam -files $bedFile -names > accepted_hits.
 mv accepted_hits.uniqalign.genenames.bam $prefix.uniqalign.genenames.bam
 
 echo "Sorting and indexing bam file"
-samtools sort $prefix.uniqalign.genenames.bam $prefix.uniqalign.genenames.sorted
+samtools sort -@ 4 $prefix.uniqalign.genenames.bam $prefix.uniqalign.genenames.sorted
 samtools index $prefix.uniqalign.genenames.sorted.bam
 
 echo "UMI correction: writing correcting bam file and count file..."
 #Rscript /groups/cbdm_lab/dp133/scripts/umi_scripts/CorrectAndCountUMIs.R exons $prefix.uniqalign.genenames.sorted.bam
-
-Rscript $dirCode/CorrectAndCountUMIsEditDist.R exons $prefix.uniqalign.genenames.sorted.bam 
+Rscript $dirCode/CorrectAndCountUMIsEditDist.R exons $prefix.uniqalign.genenames.sorted.bam $dirCode $lecseqPath $result_directory $rda_directory
 
 echo "Stats..."
 echo $prefix > names.txt
@@ -62,7 +60,7 @@ echo $prefix > names.txt
 grep 'Input' *align* | cut -d ':' -f 3 > reads.txt
 grep 'Mapped' *align* | cut -d ':' -f 3 | cut -d '(' -f 1 > mapped.txt
 #grep 'of these' *align* | cut -d ':' -f 3 | cut -d '(' -f 1 > multialigned.txt
-samtools view *umicorrected.bam | wc -l > umis.txt
+samtools view -@ 4 *umicorrected.bam | wc -l > umis.txt
 echo 'SAMPLE READS MAPPED UMIS' > $prefix.mapping_rates.txt
 paste names.txt reads.txt mapped.txt umis.txt >> $prefix.mapping_rates.txt
 rm names.txt reads.txt mapped.txt umis.txt
