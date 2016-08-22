@@ -15,7 +15,7 @@ parser.add_argument("-time", help="The amount of hours the genome will take to p
 parser.add_argument("-bc", help="Length of barcode")#accepts the barcode length
 parser.add_argument("-ul", help="UML lenght")#accepts the UMI length
 parser.add_argument("-b", help="Path to the bed file")#What is the name of your bed file
-parser.add_argument("-r", help="Path to the Rda files Genes, ex")#What is the name of your bed file
+parser.add_argument("-r", help="Path to the Rda files")#What is the name of your bed file
 args = parser.parse_args()
 
 currentPath = os.path.dirname(os.path.realpath(__file__))
