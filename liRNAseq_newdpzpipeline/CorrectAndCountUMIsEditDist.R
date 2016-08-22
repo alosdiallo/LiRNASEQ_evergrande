@@ -42,7 +42,7 @@ cat("Alos:watch 3:\n")
 #write.table(df,"df.txt")
 cat("Keeps only reads with a gene name assigned...\n")
 df$genes = sapply(df$YB, function(x) strsplit(strsplit(x, split = ",")[[1]],split = " ")[[1]][1]) # keeps first gene name
-df = as.data.frame(df)
+df = as.data.frame(df) # Alos Diallo
 #write.table(df$YB,"df_2.txt")
 df = df[!is.na(df$genes),] # removes reads not assigned to gene names
 proc.time() - ptm
@@ -54,6 +54,7 @@ w = sapply(qname, function(x) as.character(x))
 v = sapply(w, function(x) strsplit(x, split = "[:]"))
 n = sapply(v, function(x) unlist(x, use.names = FALSE)[5])
 rownames(n) <- NULL
+#for (i in 1:nrow(df)) { umis = c(umis, strsplit(as.character(df$qname[i]), split = ":")[[1]][5]) }  OLD Version - Alos Diallo
 umis = n
 df = cbind(df,umis)
 write.table(df,"df_all.txt", row.names = FALSE)
@@ -100,16 +101,22 @@ filter = FilterRules(filter_factory(want))
 destfile = paste(prefix, "_umicorrected.bam", sep = "")
 dest = filterBam(file = bam_file_name, destination = destfile, filter = filter)
 proc.time() - ptm
-
+#Rda file and location
+cat("Alos:Combining the RDA path with the file names :START\n")
+rdirectory = args[6]
+exonsRda = paste(rdirectory, "exons.Rda", sep="")
+genesRda = paste(rdirectory, "genes.Rda", sep="")
+exonsRda = paste(rdirectory, "exons.Rda", sep="")
+cat("Alos:Combining the RDA path with the file names :END\n")
 ptm <- proc.time()
 cat("Alos:watch 6:Start\n")
 cat("PART2: Counts reads in genes\n")
 if (args[1] == "exons") { 
-  load("/groups/cbdm_lab/dp133/scripts/allon_scripts/exons.Rda") } else 
+  load(exonsRda) } else 
     if (args[1] == "genes") { 
-      load("/groups/cbdm_lab/dp133/scripts/allon_scripts/genes.Rda") } else 
+      load(genesRda) } else 
         if (args[1] == "genes_5kb") {
-          load("/groups/cbdm_lab/dp133/scripts/allon_scripts/genes_5kb.Rda") } else { print("choose between exons/genes/genes_5kb")}
+          load(exonsRda) } else { print("choose between exons/genes/genes_5kb")}
 
 ref
 proc.time() - ptm
