@@ -25,5 +25,5 @@ cd $expdir
 
 
 
-for dir in S*; do echo $dir ; bsub -q priority -n 4 -W 400:00 -R "rusage[mem=7000]" -o $dir.liRNAseq.log $dirCurrent/liRNAseq_pipeline_2.sh $dir $dir $genome $tran $umi $bc $dirCurrent $expdir $bedFile $rDApath; done
+for dir in S*; do echo $dir ; bsub -q mcore -n 4 -W 400:00 -R "rusage[mem=7000]" -o $dir.liRNAseq.log $dirCurrent/liRNAseq_pipeline_2.sh $dir $dir $genome $tran $umi $bc $dirCurrent $expdir $bedFile $rDApath; done
 
