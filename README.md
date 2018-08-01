@@ -42,7 +42,7 @@ References
 --------------------
 	David Puyraimond-Zemmour - Harvard Medical School
   	Ashley Sun - Harvard Medical School
+	Jiang, Yu-Shan - Harvard Medical School
   	Alos Diallo - Harvard Medical School
-  	Jiang, Yu-Shan - Harvard Medical School
   	Evergrande Center for Immunologic Diseases
   	http://evergrande.hms.harvard.edu/
