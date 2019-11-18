@@ -38,7 +38,7 @@ The LiRNASEQ_evergrande is used to analyze single cell RNA Seq experiments, gene
         /groups/immdiv-bioinfo/evergrande/yael/genomes/NOD_custom_mm10/known_mm10 -time 36 -bc 12 -u 4 -b known_mm10_exons.bed
         -r /groups/cbdm_lab/dp133/scripts/allon_scripts/
         
-References
+Authors
 --------------------
 	David Puyraimond-Zemmour - Harvard Medical School
   	Ashley Sun - Harvard Medical School
