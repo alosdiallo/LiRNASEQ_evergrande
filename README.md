@@ -46,3 +46,11 @@ Authors
   	Alos Diallo - Harvard Medical School
   	Evergrande Center for Immunologic Diseases
   	http://evergrande.hms.harvard.edu/
+	
+	
+Copyright © 2018 the President and Fellows of Harvard College.
+
+![Blavatnikimmunology](https://github.com/alosdiallo/DNA_Rchitect/blob/master/App/www/Blavatnikimmunology.jpg)
+![Immgen](https://github.com/alosdiallo/DNA_Rchitect/blob/master/App/www/immgen.png)  
+
+### [MIT License](https://github.com/alosdiallo/HiC_Network_Viz_tool/blob/master/Licence.txt)
