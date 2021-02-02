@@ -44,8 +44,6 @@ Authors
 	Jiang, Yu-Shan - Harvard Medical School
 	David Puyraimond-Zemmour - Harvard Medical School
   	Alos Diallo - Harvard Medical School
-  	Evergrande Center for Immunologic Diseases
-  	http://evergrande.hms.harvard.edu/
 	
 	
 Copyright © 2018 the President and Fellows of Harvard College.
